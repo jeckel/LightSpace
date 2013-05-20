@@ -1,6 +1,7 @@
 #include "FastSPI_LED2.h"
 #include "LEDStrip.h"
 #include "RunningEffect.h"
+#include "ColorWipeEffect.h"
 
 // Nb led
 #define NUM_LEDS 150
@@ -11,7 +12,7 @@ TM1809Controller800Mhz<6> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
-RunningEffect effect[NB_STRIPS];
+ColorWipeEffect effect[NB_STRIPS];
 
 /**
  * Initialisation
@@ -29,7 +30,7 @@ void setup() {
     
     for(int i = 0; i < NB_STRIPS; i++)
     {
-        effect[i] = RunningEffect(strip[i]);
+        effect[i] = ColorWipeEffect(strip[i]);
     }
   
     LED.init();
