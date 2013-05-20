@@ -4,28 +4,33 @@
 
 // Nb led
 #define NUM_LEDS 150
+#define NB_STRIPS 2
 
 // Enable controller TM1809 on PIN 6
 TM1809Controller800Mhz<6> LED;
 struct CRGB * pixels;
 
-LEDStrip strip1 = LEDStrip();
-LEDStrip strip2 = LEDStrip();
-RunningEffect effect1, effect2;
+LEDStrip strip[NB_STRIPS];
+RunningEffect effect[NB_STRIPS];
 
 /**
  * Initialisation
  */
 void setup() {
+    // Allocate memory for pixels, this is the memory range that will be sent directly to the TM1809
     pixels = (struct CRGB *) malloc(NUM_LEDS * sizeof(struct CRGB));
     memset(pixels, 0, NUM_LEDS * sizeof(struct CRGB));
 
-    strip1.setPixels(pixels, 75);
-    strip2.setPixels(pixels + 75, 75);
-    strip2.setReverse(true);
+    strip[0] = LEDStrip();
+    strip[0].setPixels(pixels, 75);
+    strip[1] = LEDStrip();
+    strip[1].setPixels(pixels + 75, 75);
+    strip[1].setReverse(true);
     
-    effect1 = RunningEffect(strip1);
-    effect2 = RunningEffect(strip2);
+    for(int i = 0; i < NB_STRIPS; i++)
+    {
+        effect[i] = RunningEffect(strip[i]);
+    }
   
     LED.init();
     LED.showRGB((byte *)pixels, NUM_LEDS);
@@ -35,17 +40,17 @@ void setup() {
  * The loop
  */
 void loop() {
-    effect1.start(Color(127, 127, 127)); // white
-    effect2.start(Color(127, 127, 127)); // white
+    effect[0].start(Color(127, 127, 127)); // white
+    effect[1].start(Color(127, 127, 127)); // white
     runEffect();
-    effect1.start(Color(127, 0, 0)); // red
-    effect2.start(Color(0, 127, 127)); // cyan
+    effect[0].start(Color(127, 0, 0)); // red
+    effect[1].start(Color(0, 127, 127)); // cyan
     runEffect();
-    effect1.start(Color(0, 127, 0)); // green
-    effect2.start(Color(127, 0, 127)); // magenta
+    effect[0].start(Color(0, 127, 0)); // green
+    effect[1].start(Color(127, 0, 127)); // magenta
     runEffect();
-    effect1.start(Color(0, 0, 127)); // blue
-    effect2.start(Color(127, 127, 0)); // yellow
+    effect[0].start(Color(0, 0, 127)); // blue
+    effect[1].start(Color(127, 127, 0)); // yellow
     runEffect();
 }   // loop
 
@@ -53,16 +58,19 @@ void loop() {
  * Loop on an effect
  */
 void runEffect() {
-    while(effect1.isStarted() && effect2.isStarted())
+    boolean isStarted = true;
+    while(isStarted)
     {
-        effect1.beforePause();
-        effect2.beforePause();
+        for(int i=0; i < NB_STRIPS; i++) {
+            effect[i].beforePause();
+        }
         LED.showRGB((byte *)pixels, NUM_LEDS);
         delay(5);
-        effect1.afterPause();
-        effect1.nextStep();
-        effect2.afterPause();
-        effect2.nextStep();
+        for(int i=0; i < NB_STRIPS; i++) {
+            effect[i].afterPause();
+            effect[i].nextStep();
+            isStarted &= effect[i].isStarted();
+        }
     }
 }
 
