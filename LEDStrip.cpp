@@ -9,6 +9,7 @@ LEDStrip::LEDStrip()
     {
         free(pixels); // Free existing data (if any)
     }
+    init();
 }   // LEDStrip
 
 
@@ -23,7 +24,16 @@ LEDStrip::LEDStrip(uint16_t n)
         free(pixels); // Free existing data (if any)
     }
     setPixels((struct CRGB *)malloc(numBytes), n);
+    init();
 }    // LEDStrip(uint16_t n)
+
+/**
+ * Initialize with default values
+ */
+void LEDStrip::init()
+{
+    reverse = false;
+}
 
 /**
  * Set memory allocated to pixels and size of it

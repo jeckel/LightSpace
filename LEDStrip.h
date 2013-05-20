@@ -34,6 +34,8 @@ class LEDStrip {
         struct CRGB * pixels;    // Memory used for LEDStrip datas, this datas will be pushed as is into Arduino
         uint16_t      numLEDs;    // Number of RGB LEDs in strip
         boolean       reverse;
+        
+        void init();
 };
 
 /**
