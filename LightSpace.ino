@@ -1,5 +1,6 @@
 #include "FastSPI_LED2.h"
 #include "LEDStrip.h"
+#include "RunningEffect.h"
 
 // Nb led
 #define NUM_LEDS 150
@@ -9,6 +10,7 @@ TM1809Controller800Mhz<6> LED;
 struct CRGB * pixels;
 
 LEDStrip strip = LEDStrip();
+RunningEffect effect;
 
 /**
  * Initialisation
@@ -17,7 +19,8 @@ void setup() {
     pixels = (struct CRGB *) malloc(NUM_LEDS * sizeof(struct CRGB));
     memset(pixels, 0, NUM_LEDS * sizeof(struct CRGB));
     strip.setPixels(pixels, NUM_LEDS);
-    strip.setReverse(true);
+//    strip.setReverse(true);
+    effect = RunningEffect(strip);
   
     LED.init();
     LED.showRGB((byte *)pixels, NUM_LEDS);
@@ -27,14 +30,27 @@ void setup() {
  * The loop
  */
 void loop() {
-    int led = 0;
-    for(int i = 0; i < NUM_LEDS; i++)
+    effect.start(Color(127, 127, 127)); // white
+    runEffect();
+    effect.start(Color(127, 0, 0)); // red
+    runEffect();
+    effect.start(Color(0, 127, 0)); // green
+    runEffect();
+    effect.start(Color(0, 0, 127)); // blue
+    runEffect();
+}   // loop
+
+/**
+ * Loop on an effect
+ */
+void runEffect() {
+    while(effect.isStarted())
     {
-        led = (strip.isReverse()) ? NUM_LEDS - i : i;
-        strip.setPixelColor(led, Color(127, 127, 127));
+        effect.beforePause();
         LED.showRGB((byte *)pixels, NUM_LEDS);
         delay(5);
-        strip.setPixelColor(led, Color(0, 0, 0));
-    }   // for
-}   // loop
+        effect.afterPause();
+        effect.nextStep();
+    }
+}
 
