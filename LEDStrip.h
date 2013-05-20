@@ -12,7 +12,7 @@
 #include <FastSPI_LED2.h>
 
 // Define the RGB Pixel structure
-struct CRGB { byte r; byte g; byte b; };
+struct CRGB { byte b; byte r; byte g; };
 
 /**
  * LED Strip class declaration
