@@ -37,6 +37,24 @@ void LEDStrip::setPixels(struct CRGB * p, uint16_t n)
 }
 
 /**
+ * Define is the strip is running in the right way or in a reverse way (up to down)
+ * @param boolean r True if workinf in reverse way
+ */
+void LEDStrip::setReverse(boolean r)
+{
+    reverse = r;
+}
+
+/**
+ * Return if strip is workinf in a reverse way
+ * @return boolean
+ */
+boolean LEDStrip::isReverse()
+{
+    return reverse;
+}
+
+/**
  * Get number of leds in strip
  * @return uint16_t
  */

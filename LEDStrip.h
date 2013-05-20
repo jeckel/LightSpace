@@ -25,14 +25,15 @@ class LEDStrip {
         void setPixelColor(uint16_t pixel, struct CRGB c);
         void setStrip(uint16_t set);
         void setPixels(struct CRGB * p, uint16_t n);
+        void setReverse(boolean r=false);
+        boolean isReverse();
         uint16_t numPixels(void);
         byte* getPixels(void);
-//        boolean colorChase(struct CRGB c);
 
     private:
         struct CRGB * pixels;    // Memory used for LEDStrip datas, this datas will be pushed as is into Arduino
         uint16_t      numLEDs;    // Number of RGB LEDs in strip
-        //effect_step;
+        boolean       reverse;
 };
 
 /**

@@ -17,6 +17,7 @@ void setup() {
     pixels = (struct CRGB *) malloc(NUM_LEDS * sizeof(struct CRGB));
     memset(pixels, 0, NUM_LEDS * sizeof(struct CRGB));
     strip.setPixels(pixels, NUM_LEDS);
+    strip.setReverse(true);
   
     LED.init();
     LED.showRGB((byte *)pixels, NUM_LEDS);
@@ -26,12 +27,14 @@ void setup() {
  * The loop
  */
 void loop() {
+    int led = 0;
     for(int i = 0; i < NUM_LEDS; i++)
     {
-        strip.setPixelColor(i, Color(127, 127, 127));
+        led = (strip.isReverse()) ? NUM_LEDS - i : i;
+        strip.setPixelColor(led, Color(127, 127, 127));
         LED.showRGB((byte *)pixels, NUM_LEDS);
         delay(5);
-        strip.setPixelColor(i, Color(0, 0, 0));
+        strip.setPixelColor(led, Color(0, 0, 0));
     }   // for
 }   // loop
 
