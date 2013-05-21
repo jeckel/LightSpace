@@ -13,7 +13,7 @@ TM1809Controller800Mhz<6> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
-ColorWipeEffect effect[NB_STRIPS];
+RunningEffect effect[NB_STRIPS];
 
 /**
  * Initialisation
@@ -31,7 +31,7 @@ void setup() {
     
     for(int i = 0; i < NB_STRIPS; i++)
     {
-        effect[i] = ColorWipeEffect(strip[i]);
+        effect[i] = RunningEffect(strip[i]);
     }
   
     LED.init();
