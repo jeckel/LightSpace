@@ -19,15 +19,6 @@ ColorWipeEffect::ColorWipeEffect(LEDStrip s)
 }
 
 /**
- * Initialize parameters for all constructor
- */
-void ColorWipeEffect::init()
-{
-    current_step = 0;
-    started      = false;
-}
-
-/**
  * Set LED Strip
  * @param LEDStrip s
  */
@@ -54,15 +45,6 @@ void ColorWipeEffect::start(struct CRGB c)
 }
 
 /**
- * Return if the current effect has been initialised and started, will return false if effect has ended
- * @return bool
- */
-boolean ColorWipeEffect::isStarted()
-{
-    return started;
-}
-
-/**
  * Execute changes that have to be made after the "delay", it means turn ON the led
  */
 void ColorWipeEffect::beforePause()
@@ -78,25 +60,3 @@ void ColorWipeEffect::afterPause()
     //strip.setPixelColor(current_step, Color(0, 0, 0));
 }
 
-/**
- * Move to next LED, taking in account the way (reverse) of the strip.
- *
- * if the end of the strip has been reach, the stop the effect and return true
- * @return boolean
- */
-boolean ColorWipeEffect::nextStep()
-{
-    if (! started) return false;
-    if (strip.isReverse()) {
-        current_step--;
-    } else {
-        current_step++;
-    }
-    if (current_step < 0 || current_step >= numLEDs)
-    {
-        started = false;
-        return true;
-    } else {
-        return false;
-    }
-}

@@ -1,5 +1,6 @@
 #include "FastSPI_LED2.h"
 #include "LEDStrip.h"
+#include "Effect.h"
 #include "RunningEffect.h"
 #include "ColorWipeEffect.h"
 
