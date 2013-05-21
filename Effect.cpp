@@ -38,6 +38,15 @@ boolean Effect::isEndReached()
 }
 
 /**
+ * Return if effect is running or not, this depend on endReached, but can depend on more
+ * @return boolean
+ */
+boolean Effect::isRunning()
+{
+    return ! isEndReached();
+}
+
+/**
  * Move to next LED, taking in account the way (reverse) of the strip.
  *
  * if the end of the strip has been reach, the stop the effect and return true

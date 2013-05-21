@@ -12,6 +12,7 @@ class Effect {
         void reset();
         void setStrip(LEDStrip s);
         boolean isEndReached();
+        boolean isRunning();
         void beforePause() {};
         void afterPause() {};
         boolean nextStep();
