@@ -49,12 +49,12 @@ boolean Effect::isRunning()
 /**
  * Move to next LED, taking in account the way (reverse) of the strip.
  *
- * if the end of the strip has been reach, the stop the effect and return true
+ * if the end of the strip has been reach, the stop the effect and return false
  * @return boolean
  */
 boolean Effect::nextStep()
 {
-    if (! started) return false;
+    if (! isRunning()) return false;
     if (strip.isReverse()) {
         current_step--;
     } else {
@@ -63,8 +63,8 @@ boolean Effect::nextStep()
     if (current_step < 0 || current_step >= numLEDs)
     {
         end_reached = true;
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
 }

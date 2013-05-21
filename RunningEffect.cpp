@@ -32,7 +32,10 @@ void RunningEffect::start(struct CRGB c)
  */
 void RunningEffect::beforePause()
 {
-    strip.setPixelColor(current_step, color);
+    if (isRunning())
+    {
+        strip.setPixelColor(current_step, color);
+    }
 }
 
 /**
@@ -40,6 +43,9 @@ void RunningEffect::beforePause()
  */
 void RunningEffect::afterPause()
 {
-    strip.setPixelColor(current_step, Color(0, 0, 0));
+    if (isRunning())
+    {
+        strip.setPixelColor(current_step, Color(0, 0, 0));
+    }
 }
 

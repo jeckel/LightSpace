@@ -32,7 +32,10 @@ void ColorWipeEffect::start(struct CRGB c)
  */
 void ColorWipeEffect::beforePause()
 {
-    strip.setPixelColor(current_step, color);
+    if (isRunning())
+    {
+        strip.setPixelColor(current_step, color);
+    }
 }
 
 
