@@ -9,10 +9,11 @@ class Effect {
         inline void debug(char* debugString){ 
             Serial.println(debugString); 
         }
+        void setStrip(LEDStrip s);
         boolean isStarted();
-        virtual void beforePause() = 0;
+        void beforePause() {};
         void afterPause() {};
-        virtual boolean nextStep();
+        boolean nextStep();
         
     protected:
         LEDStrip    strip;

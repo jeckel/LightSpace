@@ -10,6 +10,18 @@ void Effect::init()
     started      = false;
 }
 
+
+/**
+ * Set LED Strip
+ * @param LEDStrip s
+ */
+void Effect::setStrip(LEDStrip s)
+{
+    strip   = s;
+    numLEDs = strip.numPixels();
+}
+
+
 /**
  * Return if the current effect has been initialised and started, will return false if effect has ended
  * @return bool
