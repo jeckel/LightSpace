@@ -9,6 +9,7 @@ class Effect {
         inline void debug(char* debugString){ 
             Serial.println(debugString); 
         }
+        void reset();
         void setStrip(LEDStrip s);
         boolean isStarted();
         void beforePause() {};
@@ -20,8 +21,6 @@ class Effect {
         uint16_t    numLEDs;
         boolean     started;
         uint16_t    current_step;
-        
-        void init();
 };
 
 #endif

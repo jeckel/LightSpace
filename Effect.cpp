@@ -1,15 +1,6 @@
 // Load requirements
 #include "Effect.h"
 
-/**
- * Initialize parameters for all constructor
- */
-void Effect::init()
-{
-    current_step = 0;
-    started      = false;
-}
-
 
 /**
  * Set LED Strip
@@ -19,8 +10,23 @@ void Effect::setStrip(LEDStrip s)
 {
     strip   = s;
     numLEDs = strip.numPixels();
+    reset();
 }
 
+/**
+ * Reset the effect to its starting position
+ */
+void Effect::reset()
+{
+    if (strip.numPixels() != 0) {
+        started = true;
+        if (strip.isReverse()) {
+            current_step = numLEDs - 1;
+        } else {
+            current_step = 0;
+        }
+    }
+}
 
 /**
  * Return if the current effect has been initialised and started, will return false if effect has ended

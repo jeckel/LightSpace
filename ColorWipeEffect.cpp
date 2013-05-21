@@ -5,7 +5,6 @@
  */
 ColorWipeEffect::ColorWipeEffect()
 {
-    init();
 }
 
 /**
@@ -15,7 +14,6 @@ ColorWipeEffect::ColorWipeEffect()
 ColorWipeEffect::ColorWipeEffect(LEDStrip s)
 {
     setStrip(s);
-    init();
 }
 
 /**
@@ -26,12 +24,7 @@ void ColorWipeEffect::start(struct CRGB c)
 {
     strip.setStrip(0);
     color   = c;
-    started = true;
-    if (strip.isReverse()) {
-        current_step = numLEDs - 1;
-    } else {
-        current_step = 0;
-    }
+    reset();
 }
 
 /**
