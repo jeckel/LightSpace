@@ -11,7 +11,7 @@ class Effect {
         }
         void reset();
         void setStrip(LEDStrip s);
-        boolean isStarted();
+        boolean isEndReached();
         void beforePause() {};
         void afterPause() {};
         boolean nextStep();
@@ -19,7 +19,7 @@ class Effect {
     protected:
         LEDStrip    strip;
         uint16_t    numLEDs;
-        boolean     started;
+        boolean     end_reached;
         uint16_t    current_step;
 };
 

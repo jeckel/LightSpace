@@ -60,9 +60,15 @@ void loop() {
  * Loop on an effect
  */
 void runEffect() {
-    boolean isStarted = true;
-    while(isStarted)
+    boolean end_reached = false;
+    for(int i=0; i < NB_STRIPS; i++)
     {
+        effect[i].reset();
+    }
+    
+    while(! end_reached)
+    {
+        end_reached = true;
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].beforePause();
         }
@@ -71,7 +77,7 @@ void runEffect() {
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].afterPause();
             effect[i].nextStep();
-            isStarted &= effect[i].isStarted();
+            end_reached &= effect[i].isEndReached();
         }
     }
 }
