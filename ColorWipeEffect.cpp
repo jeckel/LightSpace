@@ -55,8 +55,8 @@ void ColorWipeEffect::beforePause()
 /**
  * Execute changes that have to be made after the "delay", it means turn OFF the led
  */
-void ColorWipeEffect::afterPause()
+/*void ColorWipeEffect::afterPause()
 {
     //strip.setPixelColor(current_step, Color(0, 0, 0));
-}
+}*/
 

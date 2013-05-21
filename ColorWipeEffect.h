@@ -17,7 +17,7 @@ class ColorWipeEffect : public Effect {
         void setStrip(LEDStrip s);
         void start(struct CRGB c);
         void beforePause();
-        void afterPause();
+//        void afterPause();
     
     private:
         struct CRGB color;

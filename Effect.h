@@ -11,7 +11,7 @@ class Effect {
         }
         boolean isStarted();
         virtual void beforePause() = 0;
-        virtual void afterPause()  = 0;
+        void afterPause() {};
         virtual boolean nextStep();
         
     protected:
