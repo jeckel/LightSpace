@@ -1,4 +1,5 @@
 #include "FastSPI_LED2.h"
+#include "StripController.h"
 #include "LEDStrip.h"
 #include "Effect.h"
 #include "RunningEffect.h"
@@ -9,7 +10,7 @@
 #define NB_STRIPS 2
 
 // Enable controller TM1809 on PIN 6
-TM1809Controller800Mhz<6> LED;
+StripController<6> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
