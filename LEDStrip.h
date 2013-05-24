@@ -9,8 +9,7 @@
  #include <pins_arduino.h>
 #endif
 
-// Define the RGB Pixel structure
-struct CRGB { byte b; byte r; byte g; };
+#include "Color.h"
 
 /**
  * LED Strip class declaration
@@ -35,10 +34,5 @@ class LEDStrip {
         
         void init();
 };
-
-/**
- * Usefull function
- */
-struct CRGB Color(byte r, byte g, byte b);
 
 #endif

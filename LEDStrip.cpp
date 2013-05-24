@@ -121,19 +121,3 @@ void LEDStrip::setStrip(uint16_t set)
     memset(pixels, set, numLEDs * sizeof(struct CRGB));
 }
 
-/**
- * Convert separate R,G,B into combined 32-bit GRB
- * @param byte r Red color
- * @param byte g Green color
- * @param byte b Blue color
- * @return struct CRGB
- */
-struct CRGB Color(byte r, byte g, byte b)
-{
-    struct CRGB led;
-    led.r = r;
-    led.g = g;
-    led.b = b;
-    return led;
-}
-
