@@ -10,7 +10,7 @@
 #define NB_STRIPS 2
 
 // Enable controller TM1809 on PIN 6
-StripController<6> LED;
+StripController<6, NUM_LEDS> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
@@ -20,9 +20,10 @@ RunningEffect effect[NB_STRIPS];
  * Initialisation
  */
 void setup() {
-    // Allocate memory for pixels, this is the memory range that will be sent directly to the TM1809
-    pixels = (struct CRGB *) malloc(NUM_LEDS * sizeof(struct CRGB));
-    memset(pixels, 0, NUM_LEDS * sizeof(struct CRGB));
+    LED.init();
+    Serial.begin(9600);
+    Serial.println(sizeof(struct CRGB));
+    pixels = (struct CRGB *) LED.getPixels();
 
     strip[0] = LEDStrip();
     strip[0].setPixels(pixels, 75);
@@ -35,8 +36,7 @@ void setup() {
         effect[i] = RunningEffect(strip[i]);
     }
   
-    LED.init();
-    LED.showRGB((byte *)pixels, NUM_LEDS);
+    LED.show();
 }
 
 /**
@@ -73,7 +73,7 @@ void runEffect() {
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].beforePause();
         }
-        LED.showRGB((byte *)pixels, NUM_LEDS);
+        LED.show();
         delay(5);
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].afterPause();

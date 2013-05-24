@@ -9,8 +9,6 @@
  #include <pins_arduino.h>
 #endif
 
-#include <FastSPI_LED2.h>
-
 // Define the RGB Pixel structure
 struct CRGB { byte b; byte r; byte g; };
 
