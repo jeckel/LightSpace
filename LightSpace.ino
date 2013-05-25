@@ -4,17 +4,23 @@
 #include "Effect.h"
 #include "RunningEffect.h"
 #include "ColorWipeEffect.h"
+#include "FireEffect.h"
 
 // Nb led
 #define NUM_LEDS 150
-#define NB_STRIPS 2
+#define NB_STRIPS 1
 
 // Enable controller TM1809 on PIN 6
 StripController<6, NUM_LEDS> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
-RunningEffect effect[NB_STRIPS];
+FireEffect effect[NB_STRIPS];
+
+struct CRGB palette[256]; //this will contain the color palette
+
+//int nb_pixel = 74;
+int fire[NUM_LEDS];
 
 /**
  * Initialisation
@@ -22,28 +28,28 @@ RunningEffect effect[NB_STRIPS];
 void setup() {
     LED.init();
     Serial.begin(9600);
-    Serial.println(sizeof(struct CRGB));
+    Serial.println("Begin");
+   
     pixels = (struct CRGB *) LED.getPixels();
 
     strip[0] = LEDStrip();
-    strip[0].setPixels(pixels, 75);
-    strip[1] = LEDStrip();
+    strip[0].setPixels(pixels, 150);
+    effect[0].setStrip(strip[0]);
+    
+/*    strip[1] = LEDStrip();
     strip[1].setPixels(pixels + 75, 75);
     strip[1].setReverse(true);
-    
-    for(int i = 0; i < NB_STRIPS; i++)
-    {
-        effect[i] = RunningEffect(strip[i]);
-    }
-  
+*/    
     LED.show();
+    Serial.println("End Setup");
 }
 
 /**
  * The loop
  */
 void loop() {
-    effect[0].start(Color(127, 127, 127)); // white
+    runEffect();
+/*    effect[0].start(Color(127, 127, 127)); // white
     effect[1].start(Color(127, 127, 127)); // white
     runEffect();
     effect[0].start(Color(127, 0, 0)); // red
@@ -55,6 +61,7 @@ void loop() {
     effect[0].start(Color(0, 0, 127)); // blue
     effect[1].start(Color(127, 127, 0)); // yellow
     runEffect();
+    */
 }   // loop
 
 /**
@@ -82,4 +89,7 @@ void runEffect() {
         }
     }
 }
+
+
+
 
