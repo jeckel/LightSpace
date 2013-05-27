@@ -4,6 +4,7 @@
 // Load requirements
 #include "LEDStrip.h"
 #include "Effect.h"
+
 /**
  * Running Effect class declaration
  * 
@@ -16,9 +17,8 @@ class FireEffect : public Effect {
         void beforePause();
 
     private:
-        struct CRGB palette[256];
-        byte * fire;
-        void preparePalette();
+        byte fire[75];
+        struct CRGB getPalette(byte x);
 };
 
 
