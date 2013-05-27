@@ -15,7 +15,7 @@ StripController<6, NUM_LEDS> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
-FireEffect effect[NB_STRIPS];
+RunningEffect effect[NB_STRIPS];
 
 struct CRGB palette[256]; //this will contain the color palette
 
@@ -32,11 +32,12 @@ void setup() {
     pixels = (struct CRGB *) LED.getPixels();
 
     strip[0].setPixels(pixels, 75);
+    strip[0].setReverse(true);
     effect[0].setStrip(strip[0]);
     
     strip[1].setPixels(pixels + 75, 75);
-    strip[1].setReverse(true);
     effect[1].setStrip(strip[1]);
+    
 
     LED.show();
     Serial.println("End Setup");
@@ -47,10 +48,9 @@ void setup() {
  */
 void loop() {
     Serial.println("Loop");
+    effect[0].start(Color(127, 127, 127)); // white
+    effect[1].start(Color(127, 127, 127)); // white
     runEffect();
-//    effect[0].start(getColor());
-//    effect[0].start(Color(127, 127, 127)); // white
-//    effect[1].start(Color(127, 127, 127)); // white
 //    runEffect();
 /*    effect[0].start(Color(127, 0, 0)); // red
     effect[1].start(Color(0, 127, 127)); // cyan
