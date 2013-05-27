@@ -19,11 +19,7 @@ void Effect::setStrip(LEDStrip s)
 void Effect::reset()
 {
     if (strip.numPixels() != 0) {
-        if (strip.isReverse()) {
-            current_step = numLEDs - 1;
-        } else {
-            current_step = 0;
-        }
+        current_step = 0;
         end_reached = false;
     }
 }
@@ -55,11 +51,7 @@ boolean Effect::isRunning()
 boolean Effect::nextStep()
 {
     if (! isRunning()) return false;
-    if (strip.isReverse()) {
-        current_step--;
-    } else {
-        current_step++;
-    }
+    current_step++;
     if (current_step < 0 || current_step >= numLEDs)
     {
         end_reached = true;
