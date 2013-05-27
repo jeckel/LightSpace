@@ -92,9 +92,15 @@ void LEDStrip::setPixelColor(uint16_t pixel, uint8_t red, uint8_t green, uint8_t
 {
     if (pixel < numLEDs)
     {
-        pixels[pixel].r = red;
-        pixels[pixel].g = green;
-        pixels[pixel].b = blue;
+        if (reverse) {
+            pixels[numLEDs - pixel - 1].r = red;
+            pixels[numLEDs - pixel - 1].g = green;
+            pixels[numLEDs - pixel - 1].b = blue;
+        } else {
+            pixels[pixel].r = red;
+            pixels[pixel].g = green;
+            pixels[pixel].b = blue;
+        }
     }   // if
 }
 
@@ -106,9 +112,15 @@ void LEDStrip::setPixelColor(uint16_t pixel, uint8_t red, uint8_t green, uint8_t
 void LEDStrip::setPixelColor(uint16_t pixel, struct CRGB c) {
     if (pixel < numLEDs)
     {
-        pixels[pixel].r = c.r;
-        pixels[pixel].g = c.g;
-        pixels[pixel].b = c.b;
+        if (reverse) {
+            pixels[numLEDs - pixel - 1].r = c.r;
+            pixels[numLEDs - pixel - 1].g = c.g;
+            pixels[numLEDs - pixel - 1].b = c.b;
+        } else {
+            pixels[pixel].r = c.r;
+            pixels[pixel].g = c.g;
+            pixels[pixel].b = c.b;
+        }
     }
 }
 
