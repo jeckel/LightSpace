@@ -8,7 +8,7 @@
 
 // Nb led
 #define NUM_LEDS 150
-#define NB_STRIPS 1
+#define NB_STRIPS 2
 
 // Enable controller TM1809 on PIN 6
 StripController<6, NUM_LEDS> LED;
@@ -19,7 +19,6 @@ FireEffect effect[NB_STRIPS];
 
 struct CRGB palette[256]; //this will contain the color palette
 
-//int nb_pixel = 74;
 int fire[NUM_LEDS];
 
 /**
@@ -29,17 +28,16 @@ void setup() {
     LED.init();
     Serial.begin(9600);
     Serial.println("Begin");
-   
+
     pixels = (struct CRGB *) LED.getPixels();
 
-    strip[0] = LEDStrip();
-    strip[0].setPixels(pixels, 150);
+    strip[0].setPixels(pixels, 75);
     effect[0].setStrip(strip[0]);
     
-/*    strip[1] = LEDStrip();
     strip[1].setPixels(pixels + 75, 75);
     strip[1].setReverse(true);
-*/    
+    effect[1].setStrip(strip[1]);
+
     LED.show();
     Serial.println("End Setup");
 }
@@ -48,11 +46,13 @@ void setup() {
  * The loop
  */
 void loop() {
+    Serial.println("Loop");
     runEffect();
-/*    effect[0].start(Color(127, 127, 127)); // white
-    effect[1].start(Color(127, 127, 127)); // white
-    runEffect();
-    effect[0].start(Color(127, 0, 0)); // red
+//    effect[0].start(getColor());
+//    effect[0].start(Color(127, 127, 127)); // white
+//    effect[1].start(Color(127, 127, 127)); // white
+//    runEffect();
+/*    effect[0].start(Color(127, 0, 0)); // red
     effect[1].start(Color(0, 127, 127)); // cyan
     runEffect();
     effect[0].start(Color(0, 127, 0)); // green
@@ -63,6 +63,16 @@ void loop() {
     runEffect();
     */
 }   // loop
+
+struct CRGB getColor()
+{
+    return HSL( ((float) analogRead(A1)) / 1024, 1, ((float) analogRead(A2)) / 1024);
+}
+
+int getInterval()
+{
+    return analogRead(A0) / 4;
+}
 
 /**
  * Loop on an effect
@@ -81,7 +91,8 @@ void runEffect() {
             effect[i].beforePause();
         }
         LED.show();
-        delay(5);
+//        delay(5);
+        delay(getInterval());
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].afterPause();
             effect[i].nextStep();
