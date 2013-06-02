@@ -1,4 +1,5 @@
 #include "Color.h"
+#include <pgmspace.h>
 
 /**
  * Convert separate R,G,B into combined 32-bit GRB
@@ -72,7 +73,10 @@ struct CRGB HSL(float H, float S, float L)
     return color;
 }
 
-byte fireColorPalette[] = {
+/**
+ * Fire color palete stored in Flash Memory to optiomize SRAM capabilities
+ */
+PROGMEM prog_uchar fireColorPalette[] = {
     0,0,0,0,4,0,0,8,0,0,12,0,0,16,1,0,20,1,0,24,1,0,28,2,
     0,32,2,0,36,3,0,40,3,0,44,4,0,48,5,0,52,5,0,56,6,0,60,7,
     0,64,8,0,68,9,0,72,10,0,76,11,0,80,13,0,84,14,0,88,15,0,92,17,
@@ -101,7 +105,7 @@ byte fireColorPalette[] = {
 struct CRGB getFireColorFromPalette(byte x)
 {
     if (x > 128) x = 128;
-    return Color(fireColorPalette[x * 3 + 1], fireColorPalette[x * 3 + 2], fireColorPalette[x * 3]);
+    return Color(pgm_read_byte_near(fireColorPalette + x * 3 + 1), pgm_read_byte_near(fireColorPalette + x * 3 + 2), pgm_read_byte_near(fireColorPalette + x * 3));
 }
 
 
