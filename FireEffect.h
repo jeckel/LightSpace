@@ -18,7 +18,6 @@ class FireEffect : public Effect {
 
     private:
         byte fire[90];
-        struct CRGB getPalette(byte x);
 };
 
 
