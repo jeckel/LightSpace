@@ -12,14 +12,19 @@
  */
 class RunningEffect : public Effect {
     public:
+        byte length;
+        struct CRGB color;
+        boolean rewind;
+        
         RunningEffect();
         RunningEffect(LEDStrip *s);
-        void start(struct CRGB c);
+        void reset();
         void beforePause();
         void afterPause();
+        boolean nextStep();
     
     private:
-        struct CRGB color;
+        boolean returning;
 };
 
 

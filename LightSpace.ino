@@ -7,14 +7,14 @@
 #include "FireEffect.h"
 
 // Nb led
-#define NUM_LEDS 180
-#define NB_STRIPS 2
+#define NUM_LEDS 450
+#define NB_STRIPS 5
 // Enable controller TM1809 on PIN 6
 StripController<6, NUM_LEDS> LED;
 struct CRGB * pixels;
 
 LEDStrip strip[NB_STRIPS];
-FireEffect effect[NB_STRIPS];
+RunningEffect effect[NB_STRIPS];
 
 
 /**
@@ -24,14 +24,35 @@ void setup() {
     LED.init();
     pixels = (struct CRGB *) LED.getPixels();
 
-//    strip[0].setPixels(pixels, 75);
-//    strip[0].setPixels(pixels, NUM_LEDS);
     strip[0].setPixels(pixels, 90);
     effect[0].setStrip(&strip[0]);
+    effect[0].color  = Color(127, 127, 127);
+    effect[0].length = 10;
+    effect[0].rewind = true;
     
     strip[1].setPixels(pixels + 90, 90);
     strip[1].setReverse(true);
     effect[1].setStrip(&strip[1]);
+    effect[1].color  = Color(255, 0, 0);
+    effect[1].rewind = true;
+    effect[1].length = 0;
+
+    strip[2].setPixels(pixels + 180, 90);
+    effect[2].setStrip(&strip[2]);
+    effect[2].color  = Color(0, 255, 0);
+    effect[2].length = 1;
+    
+    strip[3].setPixels(pixels + 270, 90);
+    strip[3].setReverse(true);
+    effect[3].setStrip(&strip[3]);
+    effect[3].color  = Color(0, 0, 255);
+    effect[3].length = 1;
+
+    strip[4].setPixels(pixels + 360, 90);
+    effect[4].setStrip(&strip[4]);
+    effect[4].color  = Color(255, 255, 0);
+    effect[4].length = 10;
+    
     LED.show();
     
     randomSeed(analogRead(0));
@@ -41,11 +62,6 @@ void setup() {
  * The loop
  */
 void loop() {
-/*    effect[0].start(Color(127, 127, 127)); // white
-    effect[1].start(Color(127, 127, 127)); // white 
-/*    effect[2].start(Color(127, 127, 127)); // white
-    effect[3].start(Color(127, 127, 127)); // white
-    effect[4].start(Color(127, 127, 127)); // white  */
     runEffect();
 }   // loop
 
@@ -72,7 +88,6 @@ void runEffect() {
             effect[i].beforePause();
         }
         LED.show();
-//        delay(5);
         delay(getInterval());
         for(int i=0; i < NB_STRIPS; i++) {
             effect[i].afterPause();
