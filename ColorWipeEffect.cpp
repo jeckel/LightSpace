@@ -11,7 +11,7 @@ ColorWipeEffect::ColorWipeEffect()
  * Constructor with strip
  * @param LEDStrip s
  */
-ColorWipeEffect::ColorWipeEffect(LEDStrip s)
+ColorWipeEffect::ColorWipeEffect(LEDStrip *s)
 {
     setStrip(s);
 }
@@ -22,7 +22,7 @@ ColorWipeEffect::ColorWipeEffect(LEDStrip s)
  */
 void ColorWipeEffect::start(struct CRGB c)
 {
-    strip.setStrip(0);
+    strip->setStrip(0);
     color   = c;
     reset();
 }
@@ -34,7 +34,7 @@ void ColorWipeEffect::beforePause()
 {
     if (isRunning())
     {
-        strip.setPixelColor(current_step, color);
+        strip->setPixelColor(current_step, color);
     }
 }
 

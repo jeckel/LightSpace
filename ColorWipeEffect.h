@@ -13,7 +13,7 @@
 class ColorWipeEffect : public Effect {
     public:
         ColorWipeEffect();
-        ColorWipeEffect(LEDStrip s);
+        ColorWipeEffect(LEDStrip *s);
         void start(struct CRGB c);
         void beforePause();
     

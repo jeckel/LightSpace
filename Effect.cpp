@@ -6,10 +6,10 @@
  * Set LED Strip
  * @param LEDStrip s
  */
-void Effect::setStrip(LEDStrip s)
+void Effect::setStrip(LEDStrip *s)
 {
     strip   = s;
-    numLEDs = strip.numPixels();
+    numLEDs = strip->numPixels();
     reset();
 }
 
@@ -18,7 +18,7 @@ void Effect::setStrip(LEDStrip s)
  */
 void Effect::reset()
 {
-    if (strip.numPixels() != 0) {
+    if (strip->numPixels() != 0) {
         current_step = 0;
         end_reached = false;
     }

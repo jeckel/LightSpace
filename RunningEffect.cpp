@@ -11,7 +11,7 @@ RunningEffect::RunningEffect()
  * Constructor with strip
  * @param LEDStrip s
  */
-RunningEffect::RunningEffect(LEDStrip s)
+RunningEffect::RunningEffect(LEDStrip *s)
 {
     setStrip(s);
 }
@@ -22,7 +22,7 @@ RunningEffect::RunningEffect(LEDStrip s)
  */
 void RunningEffect::start(struct CRGB c)
 {
-    strip.setStrip(0);
+    strip->setStrip(0);
     color   = c;
     reset();
 }
@@ -34,7 +34,7 @@ void RunningEffect::beforePause()
 {
     if (isRunning())
     {
-        strip.setPixelColor(current_step, color);
+        strip->setPixelColor(current_step, color);
     }
 }
 
@@ -45,7 +45,7 @@ void RunningEffect::afterPause()
 {
     if (isRunning())
     {
-        strip.setPixelColor(current_step, Color(0, 0, 0));
+        strip->setPixelColor(current_step, Color(0, 0, 0));
     }
 }
 

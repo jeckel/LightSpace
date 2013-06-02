@@ -13,11 +13,11 @@
 class FireEffect : public Effect {
     public:
         FireEffect();
-        void setStrip(LEDStrip s);
+        void setStrip(LEDStrip *s);
         void beforePause();
 
     private:
-        byte fire[75];
+        byte fire[90];
         struct CRGB getPalette(byte x);
 };
 

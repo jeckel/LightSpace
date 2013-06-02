@@ -13,7 +13,7 @@
 class RunningEffect : public Effect {
     public:
         RunningEffect();
-        RunningEffect(LEDStrip s);
+        RunningEffect(LEDStrip *s);
         void start(struct CRGB c);
         void beforePause();
         void afterPause();

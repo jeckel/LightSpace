@@ -10,7 +10,7 @@ class Effect {
             Serial.println(debugString); 
         }
         void reset();
-        void setStrip(LEDStrip s);
+        void setStrip(LEDStrip *s);
         boolean isEndReached();
         boolean isRunning();
         void beforePause() {};
@@ -18,7 +18,7 @@ class Effect {
         boolean nextStep();
         
     protected:
-        LEDStrip    strip;
+        LEDStrip *   strip;
         uint16_t    numLEDs;
         boolean     end_reached;
         uint16_t    current_step;

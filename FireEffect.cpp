@@ -9,10 +9,11 @@ FireEffect::FireEffect()
  * Set LED Strip
  * @param LEDStrip s
  */
-void FireEffect::setStrip(LEDStrip s)
+void FireEffect::setStrip(LEDStrip *s)
 {
     Serial.println("setStrip");
-    memset(fire, 0, s.numPixels());
+//    memset(fire, 0, s->numPixels());
+    memset(fire, 0, 90);
     Effect::setStrip(s);
 }
 
@@ -27,10 +28,10 @@ void FireEffect::beforePause()
         fire[0] = random(255);
         for(int x = (numLEDs - 1); x > 0; x--)
         {
-            fire[x] = ((fire[x - 1] + fire[(x - 2) % numLEDs]) * (numLEDs / 2)) / (numLEDs * 1.02);
+            fire[x] = ((fire[x - 1] + fire[(x - 2) % numLEDs]) * (numLEDs / 2)) / (numLEDs * 1.045);
         }
         for(int x=0; x < numLEDs; x++) {
-            strip.setPixelColor(x, getPalette(fire[x]));
+            strip->setPixelColor(x, getPalette(fire[x]));
         }
     }
 }
